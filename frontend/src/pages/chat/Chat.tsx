@@ -623,24 +623,7 @@ const Chat = () => {
                                     disabled={disabledButton()}
                                     aria-label="start a new chat button"
                                 />}
-                                <CommandBarButton
-                                    role="button"
-                                    styles={{ 
-                                        icon: { 
-                                            color: '#FFFFFF !important',
-                                        },
-                                        root: {
-                                            color: '#FFFFFF !important',
-                                            background: disabledButton() ? "#BDBDBD" : "radial-gradient(109.81% 107.82% at 100.1% 90.19%, #0F6CBD 33.63%, #2D87C3 70.31%, #8DDDD8 100%)",
-                                            cursor: disabledButton() ? "" : "pointer"
-                                        },
-                                    }}
-                                    className={appStateContext?.state.isCosmosDBAvailable?.status !== CosmosDBStatus.NotConfigured ? styles.clearChatBroom : styles.clearChatBroomNoCosmos}
-                                    iconProps={{ iconName: 'Broom' }}
-                                    onClick={clearChat}
-                                    disabled={disabledButton()}
-                                    aria-label="clear chat button"
-                                />
+                                
                                 <Dialog
                                     hidden={hideErrorDialog}
                                     onDismiss={handleErrorDialogClose}
