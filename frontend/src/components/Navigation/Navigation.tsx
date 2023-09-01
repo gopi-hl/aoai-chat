@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { ButtonContainer } from '../common/ButtonContainer';
-import { BookSearch24Regular,ChatRegular,CartRegular } from "@fluentui/react-icons";
+import { BookSearch24Regular,Chat24Regular,Cart24Regular } from "@fluentui/react-icons";
 
 interface NavigationProps {
 
@@ -42,13 +42,13 @@ const Navigation: React.FC<NavigationProps> = ({ }) => {
 
             <ButtonContainer>
                 <a href="#">
-                    <ChatRegular />
+                    <Chat24Regular />
                 </a>
             </ButtonContainer>
 
             <ButtonContainer>
                 <a href='#'>
-                    <CartRegular />
+                    <Cart24Regular />
                 </a>
             </ButtonContainer>
 
