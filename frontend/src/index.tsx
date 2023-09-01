@@ -14,14 +14,6 @@ import styled, { createGlobalStyle } from 'styled-components';
 initializeIcons();
 
 const GlobalStyle = createGlobalStyle`
-    #root {
-        height: 100%;
-        --main-color-dark-palette: #1a1a1a;
-        --secondry-color-dark-palette: #373737;
-        --blue-button-color: #3c95f4;
-        --blue-active-color: #2070c6;
-        --blue-gradient: linear-gradient(90deg, #3c95f4 65%, #3385dc 100%);
-    }
     :root {
         height: 100%;
         --main-color-dark-palette: #1a1a1a;
