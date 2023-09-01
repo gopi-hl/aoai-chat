@@ -25,7 +25,7 @@ const Nav = styled.nav`
     }
     @media (max-width: 820px) {
         width: 100%;
-        height: 5%;
+        padding: 25px;
         flex-direction: row;
     }
 `;

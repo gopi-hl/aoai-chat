@@ -355,14 +355,14 @@ a {
 }
 
 .chatContainer {
-    
+    flex-direction: column;
     @media (max-width: 820px) {
         height: auto; 
     }
 }
 
 .chatEmptyState {
-   
+    flex-direction: column;
     @media (max-width: 820px) {
       
         margin-top: 24px; 
