@@ -25,7 +25,10 @@ def favicon():
 
 @app.route("/assets/<path:path>")
 def assets(path):
-    return send_from_directory("static/assets", path)
+     if path.endswith(".js"):
+        return send_from_directory("static/assets", path, mimetype='text/javascript')
+     else:
+        return send_from_directory("static/assets", path)
 
 
 # ACS Integration Settings

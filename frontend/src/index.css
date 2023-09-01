@@ -1,5 +1,10 @@
 * {
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  outline: transparent;
+  text-decoration: none;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
 html,
@@ -7,15 +12,31 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 html {
-    background: #f2f2f2;
-    font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+    /* background: #f2f2f2; */
+    /* font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif; */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
     height: 100%;
+    --main-color-dark-palette: #1a1a1a;
+    --secondry-color-dark-palette: #373737;
+    --blue-button-color: #3c95f4;
+    --blue-active-color: #2070c6;
+    --blue-gradient: linear-gradient(90deg, #3c95f4 65%, #3385dc 100%);
 }
+ 
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
