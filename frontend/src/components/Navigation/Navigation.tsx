@@ -10,7 +10,6 @@ interface NavigationProps {
 const Nav = styled.nav`
     display: flex;
     width: 6.75em;
-
     align-items: center;
     flex-direction: column;
     padding: 26vh 5px;
