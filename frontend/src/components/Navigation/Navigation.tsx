@@ -12,7 +12,7 @@ const Nav = styled.nav`
     width: 6.75em;
     align-items: center;
     flex-direction: column;
-    padding: 26vh 5px;
+    padding: calc(50vh - 130px) 5px;
     background: #1a1a1a;
     
     & div {
@@ -22,6 +22,7 @@ const Nav = styled.nav`
     svg{
         color: #fff;
     }
+
     @media (max-width: 820px) {
         width: 100%;
         padding: 25px;
