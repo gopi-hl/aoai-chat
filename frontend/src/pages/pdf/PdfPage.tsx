@@ -7,6 +7,7 @@ import { Document, Page } from 'react-pdf';
 import { pdfjs } from 'react-pdf';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
+
 const PdfPage = () => {
     const [numPages, setNumPages] = useState(null);
     const [pageNumber, setPageNumber] = useState(1);
@@ -22,12 +23,12 @@ const PdfPage = () => {
                 onLoadError={console.error}
                 className={styles.pdfdocument}
             >
-                {/* <Page pageNumber={pageNumber} /> */}
                 {Array.from(new Array(numPages), (el, index) => (
                     <Page
                         className={styles.pdfpage}
                         key={`page_${index + 1}`}
                         pageNumber={index + 1}
+                        width={window.innerWidth < 820 ? window.innerWidth - 100 : undefined}
                     />
                 ))}
             </Document>
