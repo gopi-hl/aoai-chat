@@ -163,6 +163,8 @@
     /* max-width: 1028px; */
     margin-bottom: 50px;
     margin-top: 8px;
+    /* padding: 0px 24px 4px;
+    margin-bottom: 65px; */
 }
 
 .clearChatBroom {
@@ -283,7 +285,7 @@
     font-weight: 600;
     font-size: 18px;
     line-height: 24px;
-    color: #000000;
+    /* color: #000000; */
     flex: none;
     order: 0;
     flex-grow: 0;
@@ -292,7 +294,7 @@
 .citationPanelDismiss {
     width: 18px;
     height: 18px;
-    color: #424242;
+    /* color: #424242; */
 }
 
 .citationPanelDismiss:hover {
@@ -305,7 +307,7 @@
     font-weight: 600;
     font-size: 16px;
     line-height: 22px;
-    color: #323130;
+    /* color: #323130; */
     margin-top: 12px;
     margin-bottom: 12px;
 }
@@ -315,7 +317,7 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
-    color: #000000;
+    /* color: #000000; */
     flex: none;
     order: 1;
     align-self: stretch;
