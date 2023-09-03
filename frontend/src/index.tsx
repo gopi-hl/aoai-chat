@@ -9,7 +9,7 @@ import Layout from "./pages/layout/Layout";
 import NoPage from "./pages/NoPage";
 import Chat from "./pages/chat/Chat";
 import { AppStateProvider } from "./state/AppProvider";
-import styled, { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 
 initializeIcons();
 
@@ -40,7 +40,7 @@ export default function App() {
                 <HashRouter>
                     <Routes>
                         <Route path="/" element={<Layout />}>
-                            <Route index element={<Chat />} />
+                            <Route path="/" element={<Chat />} />
                             <Route path="*" element={<NoPage />} />
                         </Route>
                     </Routes>

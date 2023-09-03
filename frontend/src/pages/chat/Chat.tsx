@@ -32,6 +32,7 @@ import { ChatHistoryPanel } from "../../components/ChatHistory/ChatHistoryPanel"
 import { AppStateContext } from "../../state/AppProvider";
 import { useBoolean } from "@fluentui/react-hooks";
 import Navigation from '../../components/Navigation/Navigation';
+import PdfPage from "../pdf/PdfPage";
 
 const enum messageStatus {
     NotRunning = "Not Running",
@@ -52,7 +53,8 @@ const Chat = () => {
     const [processMessages, setProcessMessages] = useState<messageStatus>(messageStatus.NotRunning);
     const [clearingChat, setClearingChat] = useState<boolean>(false);
     const [hideErrorDialog, { toggle: toggleErrorDialog }] = useBoolean(true);
-    const [errorMsg, setErrorMsg] = useState<ErrorMessage | null>()
+    const [errorMsg, setErrorMsg] = useState<ErrorMessage | null>();
+    const [navValue, setnavValue] = useState<string>('Chat');
 
     const errorDialogContentProps = {
         type: DialogType.close,
@@ -519,7 +521,11 @@ const Chat = () => {
     const disabledButton = () => {
         return isLoading || (messages && messages.length === 0) || clearingChat || appStateContext?.state.chatHistoryLoadingState === ChatHistoryLoadingState.Loading
     }
-
+    const onNavClicked = (value: string) => {
+        setnavValue(value);
+        console.log(`Navigation clicked with value: ${value}`);
+      };
+    
     return (
   
         <div className={styles.container} role="main">
@@ -535,9 +541,9 @@ const Chat = () => {
                 </Stack>
             ) : (
                 <Stack horizontal className={styles.chatRoot}>
-                    <Navigation />
-
-                    <div className={styles.chatContainer}>
+                    <Navigation onNavClicked={onNavClicked}/>
+                    <div style={{ display: (navValue === 'Chat' || null)?  'contents' : 'none'}}>
+                    <div className={styles.chatContainer} >
                         {!messages || messages.length < 1 ? (
                             <Stack className={styles.chatEmptyState}>
                                 <h1 className={styles.chatEmptyStateTitle}>Start chatting</h1>
@@ -661,9 +667,12 @@ const Chat = () => {
                         </div>
                         
                     </Stack.Item>
-                )}
+                    )}
+                    </div>
                 {(appStateContext?.state.isChatHistoryOpen && appStateContext?.state.isCosmosDBAvailable?.status !== CosmosDBStatus.NotConfigured) && <ChatHistoryPanel/>}
-
+                <div style={{ display: (navValue === 'pdf')?  'contents' : 'none'}}>
+                    {navValue === 'pdf' && <PdfPage />}
+                </div>
                 </Stack>
             )}
         </div>

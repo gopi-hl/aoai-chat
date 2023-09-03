@@ -1,0 +1,12 @@
+.pdfdocument {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+.pdfpage {
+    margin: 10px auto;
+  }
+
+.overflowScroll{
+    overflow: scroll
+}

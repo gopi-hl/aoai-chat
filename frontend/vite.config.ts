@@ -7,12 +7,19 @@ export default defineConfig({
     build: {
         outDir: "../static",
         emptyOutDir: true,
-        sourcemap: true
+        sourcemap: true,
+        rollupOptions: {
+            onwarn: (warning) => {
+              if (warning.code === 'Module level directives cause errors when bundled, "use client" in "node_modules/react-pdf/dist/esm/Page/PageCanvas.js" was ignored.') {
+                throw new Error(warning.message);
+              }
+            },
+          },
     },
     server: {
         proxy: {
             "/ask": "http://localhost:5000",
-            "/chat": "http://localhost:5000"
+            "/chat": "http://localhost:5000",
         }
     }
 });

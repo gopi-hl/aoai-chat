@@ -2,6 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { ButtonContainer } from '../common/ButtonContainer';
 import { BookSearch24Regular,Chat24Regular,Cart24Regular } from "@fluentui/react-icons";
+import { Link } from 'react-router-dom';
 
 interface NavigationProps {
 
@@ -30,18 +31,23 @@ const Nav = styled.nav`
     }
 `;
 
-const Navigation: React.FC<NavigationProps> = ({ }) => {
+const Navigation: React.FC<{ onNavClicked: (value: string) => void }> = ({ onNavClicked }) => {
+
+    function handlePdfClick(arg: string): void {
+        onNavClicked(arg);
+    }
 
     return (
         <Nav>
             <ButtonContainer >
-                <a href="#">
+                <a onClick={() => handlePdfClick('pdf')}>
                     <BookSearch24Regular />
                 </a>
+                    
             </ButtonContainer>
 
             <ButtonContainer>
-                <a href="#">
+                <a onClick={() => handlePdfClick('Chat')}>
                     <Chat24Regular />
                 </a>
             </ButtonContainer>
