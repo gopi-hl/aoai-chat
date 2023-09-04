@@ -1,12 +1,4 @@
 .pdfdocument {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    justify-content: center;
   }
-
-.pdfpage {
-    margin: 10px auto;
-  }
-
-.overflowScroll{
-    overflow: scroll
-}

@@ -28,7 +28,7 @@ const PdfPage = () => {
                         className={styles.pdfpage}
                         key={`page_${index + 1}`}
                         pageNumber={index + 1}
-                        width={window.innerWidth < 820 ? window.innerWidth - 100 : undefined}
+                        width={window.innerWidth < 820 ? window.innerWidth - 200 : undefined}
                     />
                 ))}
             </Document>

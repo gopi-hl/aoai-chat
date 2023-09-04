@@ -33,19 +33,22 @@ const Nav = styled.nav`
 
 const Navigation: React.FC<{ onNavClicked: (value: string) => void }> = ({ onNavClicked }) => {
 
-    function handlePdfClick(arg: string): void {
-        onNavClicked(arg);
+    const [activeButton, setActiveButton] = React.useState<string>('Chat');
+
+    function handleButtonClick(value: string): void {
+        setActiveButton(value);
+        onNavClicked(value);
     }
 
     return (
         <Nav>
-            <ButtonContainer >
-                <a onClick={() => handlePdfClick('pdf')}>
+            <ButtonContainer active={activeButton === 'pdf'}>
+                <a onClick={() => handleButtonClick('pdf')}>
                     <BookInformation24Regular />
                 </a>
             </ButtonContainer>
-            <ButtonContainer>
-                <a onClick={() => handlePdfClick('Chat')}>
+            <ButtonContainer active={activeButton === 'Chat'}>
+                <a onClick={() => handleButtonClick('Chat')}>
                     <Chat24Regular />
                 </a>
             </ButtonContainer>

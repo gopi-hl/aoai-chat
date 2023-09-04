@@ -12,7 +12,7 @@ interface ButtonContainerProps {
 export const ButtonContainer = styled.div<ButtonContainerProps>`
     display: ${props => props.device === 'mobile' ? 'none' : 'flex'};
     flex: ${props => props.flex ? props.flex : '1'};
-    align-items: flex-end;
+    align-items: center;
 
     @media (max-width: 820px) {
         display: flex;
