@@ -2,11 +2,15 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 8.1285px;
-    gap: 5.42px;
-    background: var(--grey-rgb);
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.14), 0px 0px 2px rgba(0, 0, 0, 0.12);
-    border-radius: 5.419px;
+    padding: 0.8em 1em;
+    background: var(--grey-rgb); 
+    border-radius: 0 8px 8px 8px;
+    line-height: 22px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    gap: 12px;
+    /* box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.14), 0px 0px 2px rgba(0, 0, 0, 0.12); */
+    /* border-radius: 5.419px; */
 }
 
 .answerText {
@@ -19,7 +23,7 @@
     order: 1;
     align-self: stretch;
     flex-grow: 0;
-    margin: 11px;
+    /* margin: 11px; */
     white-space: normal;
     word-wrap: break-word;
     max-width: 800px;

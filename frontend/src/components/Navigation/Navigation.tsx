@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { ButtonContainer } from '../common/ButtonContainer';
-import { BookSearch24Regular,Chat24Regular,Cart24Regular } from "@fluentui/react-icons";
+import { BookSearch24Regular, Chat24Regular, Cart24Regular, BookTemplate20Regular, BookInformation24Regular, MailList24Regular } from "@fluentui/react-icons";
 import { Link } from 'react-router-dom';
 
 interface NavigationProps {
@@ -13,7 +13,7 @@ const Nav = styled.nav`
     width: 6.75em;
     align-items: center;
     flex-direction: column;
-    padding: calc(50vh - 130px) 5px;
+    padding: calc(50vh - 180px) 5px;
     background: #1a1a1a;
     
     & div {
@@ -41,23 +41,24 @@ const Navigation: React.FC<{ onNavClicked: (value: string) => void }> = ({ onNav
         <Nav>
             <ButtonContainer >
                 <a onClick={() => handlePdfClick('pdf')}>
-                    <BookSearch24Regular />
+                    <BookInformation24Regular />
                 </a>
-                    
             </ButtonContainer>
-
             <ButtonContainer>
                 <a onClick={() => handlePdfClick('Chat')}>
                     <Chat24Regular />
                 </a>
             </ButtonContainer>
-
             <ButtonContainer>
-                <a href='#'>
+                <a href='https://www.kickstarter.com/' target='_blank'>
                     <Cart24Regular />
                 </a>
             </ButtonContainer>
-
+            <ButtonContainer>
+                <a href='https://devprinciples.co/' target='_blank'>
+                    <MailList24Regular />
+                </a>
+            </ButtonContainer>
         </Nav>
     );
 };

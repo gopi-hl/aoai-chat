@@ -18,7 +18,7 @@ const PdfPage = () => {
     return (
         <div className={chatstyles.chatContainer}>
             <Document
-                file="https://d1.awsstatic.com/product-marketing/S3/Amazon_S3_Security_eBook_2020.pdf"
+                file="https://devprinciples.blob.core.windows.net/book-toc/TableOfContents.pdf"
                 onLoadSuccess={onDocumentLoadSuccess}
                 onLoadError={console.error}
                 className={styles.pdfdocument}

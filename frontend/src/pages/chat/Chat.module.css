@@ -17,10 +17,10 @@
 .chatRoot {
     flex: 1;
     display: flex;
-    background: rgb(229,231,232);
+    background: rgb(229, 231, 232);
     gap: 2vw;
     padding-right: 2vw;
-    overflow: auto 
+    overflow: auto
 }
 
 .chatContainer {
@@ -31,10 +31,12 @@
     flex-direction: column;
     height: 90%;
     margin: auto 0;
-    padding: var(--vertical-padding) var(--vertical-padding) 1.5vh var(--vertical-padding);;
+    padding: var(--vertical-padding) var(--vertical-padding) 1.5vh var(--vertical-padding);
+    ;
     overflow: auto;
     background: rgb(255, 255, 255);
     border-radius: 30px;
+
     @media (max-width: 820px) {
         height: 80%;
     }
@@ -97,13 +99,39 @@
 }
 
 .chatMessageUserMessage {
-    padding: 20px;
-    background: #ffffff;
-    border-radius: 8px;
-    box-shadow:
-        0px 2px 4px rgba(0, 0, 0, 0.14),
-        0px 0px 2px rgba(0, 0, 0, 0.12);
+    background: rgb(255, 255, 255);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #323130;
+    /* box-shadow: rgba(0, 0, 0, 0.15) 2px 3px 15px; */
+    border-radius: 8px 0px 8px 8px;
+    display: flex;
+    /* font-size: 0.875em;
+    font-weight: 300; */
+    padding: 0.8em 1em;
+    width: fit-content;
+    height: fit-content;
+    outline: transparent;
+    text-decoration: none;
+    box-sizing: border-box;
+
+    font-family: "Segoe UI";
     font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    gap: 12px;
+    align-items: center;
+    /*     
+    padding: 10px;
+    background: #ffffff;
+    border: 1px solid #d1d1d1;
+    border-radius: 4px; */
+    /* box-shadow:
+        0px 2px 4px rgba(0, 0, 0, 0.14),
+        0px 0px 2px rgba(0, 0, 0, 0.12); */
+    /* font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 22px;
@@ -114,10 +142,11 @@
     white-space: pre-wrap;
     word-wrap: break-word;
     max-width: 800px;
-    margin-top: 2px;
+    margin-top: 2px; */
 }
 
 .chatMessageGpt {
+    border-radius: 8px 0 8px 8px;
     margin-bottom: 12px;
     max-width: 80%;
     display: flex;
@@ -232,11 +261,12 @@
     left: calc(50% - 161px / 2 + 25.8px);
     border: 1px solid #d1d1d1;
     border-radius: 16px;
+
     @media (max-width: 820px) {
         left: 25% !important;
-        padding: 5px 12px; 
-        width: auto; 
-        bottom: 16px; 
+        padding: 5px 12px;
+        width: auto;
+        bottom: 16px;
         top: 0px;
     }
 }
@@ -263,12 +293,13 @@
     overflow: auto;
     border-top-left-radius: 45px;
     border-bottom-left-radius: 45px;
-    background: var( --blue-gradient);
-    color: #fff;
+    /* background: var(--blue-gradient); */
+    background-color: #e5e7e8;
+    color: #323130;
 
     @media (max-width: 820px) {
         position: absolute;
-        pointer-events: none; 
+        pointer-events: none;
         right: 0;
         width: 100%;
         border-radius: 0;
@@ -294,7 +325,7 @@
 .citationPanelDismiss {
     width: 18px;
     height: 18px;
-    /* color: #424242; */
+    color: #424242;
 }
 
 .citationPanelDismiss:hover {
@@ -307,9 +338,14 @@
     font-weight: 600;
     font-size: 16px;
     line-height: 22px;
-    /* color: #323130; */
+    color: #323130;
     margin-top: 12px;
-    margin-bottom: 12px;
+    margin-bottom: 1.5rem;
+    display: none;
+}
+
+.citationPanelCloseIcon i {
+    color: #323130 !important;
 }
 
 .citationPanelContent {
@@ -322,6 +358,7 @@
     order: 1;
     align-self: stretch;
     flex-grow: 0;
+    margin-top: 1rem;
 }
 
 a {
@@ -342,58 +379,62 @@ a {
 .chatRoot {
     @media (max-width: 820px) {
         padding: 0px !important;
-        background: #ffffff; 
+        background: #ffffff;
         overflow: auto !important;
     }
 }
 
 .chatContainer {
     flex-direction: column;
+
     @media (max-width: 820px) {
-        height: auto;         
+        height: auto;
         overflow: auto;
     }
 }
 
 .chatEmptyState {
     flex-direction: column;
+
     @media (max-width: 820px) {
-      
-        margin-top: 24px; 
+
+        margin-top: 24px;
     }
 }
 
 .chatMessageStream {
     @media (max-width: 820px) {
-        margin-top: 0; 
+        margin-top: 0;
     }
 }
 
 .chatInput {
-    @media (max-width: 820px) {        
-            position: static;
-            flex: 0 0 auto;
-            padding: 12px 24px 24px;
-            width: 100%;
-            margin-bottom: 0;
-            margin-top: 8px;
-        
-    }
-}
-
-.clearChatBroom, .clearChatBroomNoCosmos, .newChatIcon {
     @media (max-width: 820px) {
-       
-        width: 32px; 
-        height: 32px; 
-        left: 8px; 
-        top: 8px; 
+        position: static;
+        flex: 0 0 auto;
+        padding: 12px 24px 24px;
+        width: 100%;
+        margin-bottom: 0;
+        margin-top: 8px;
+
     }
 }
 
-.stopGeneratingIcon, .stopGeneratingText {
-      @media (max-width: 820px) {
-        font-size: 12px; 
+.clearChatBroom,
+.clearChatBroomNoCosmos,
+.newChatIcon {
+    @media (max-width: 820px) {
+
+        width: 32px;
+        height: 32px;
+        left: 8px;
+        top: 8px;
     }
 }
 
+.stopGeneratingIcon,
+.stopGeneratingText {
+    @media (max-width: 820px) {
+        font-size: 12px;
+    }
+}

@@ -21,7 +21,7 @@ const GlobalStyle = createGlobalStyle`
         --blue-button-color: #3c95f4;
         --blue-active-color: #2070c6;
         --blue-gradient: linear-gradient(90deg, #3c95f4 65%, #3385dc 100%);
-        --grey-rgb: rgb(229,231,232);
+        --grey-rgb: rgb(239,239,239);
         --white: #ffff;
     }
 
@@ -31,7 +31,6 @@ const GlobalStyle = createGlobalStyle`
     outline: transparent;
     text-decoration: none;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
     }
 `;
 export default function App() {
