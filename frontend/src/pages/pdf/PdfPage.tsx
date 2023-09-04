@@ -1,37 +1,16 @@
-
-import { Stack } from "@fluentui/react";
-import styles from "./PdfPage.module.css";
 import chatstyles from "../chat/Chat.module.css";
-import { useState } from "react";
-import { Document, Page } from 'react-pdf';
-import { pdfjs } from 'react-pdf';
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
-
+import { Worker } from '@react-pdf-viewer/core';
+import { Viewer } from '@react-pdf-viewer/core';
+import '@react-pdf-viewer/core/lib/styles/index.css';
 
 const PdfPage = () => {
-    const [numPages, setNumPages] = useState(null);
-    const [pageNumber, setPageNumber] = useState(1);
-
-    function onDocumentLoadSuccess({ numPages }: { numPages: any }) {
-        setNumPages(numPages);
-    }
+   
+    const fileUrl = "https://devprinciples.blob.core.windows.net/book-toc/TableOfContents.pdf"
     return (
         <div className={chatstyles.chatContainer}>
-            <Document
-                file="https://devprinciples.blob.core.windows.net/book-toc/TableOfContents.pdf"
-                onLoadSuccess={onDocumentLoadSuccess}
-                onLoadError={console.error}
-                className={styles.pdfdocument}
-            >
-                {Array.from(new Array(numPages), (el, index) => (
-                    <Page
-                        className={styles.pdfpage}
-                        key={`page_${index + 1}`}
-                        pageNumber={index + 1}
-                        width={window.innerWidth < 820 ? window.innerWidth - 200 : undefined}
-                    />
-                ))}
-            </Document>
+            <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
+            <Viewer fileUrl={fileUrl} />
+            </Worker>
             <p></p>
         </div>
     );

@@ -32,8 +32,6 @@
     height: 90%;
     margin: auto 0;
     padding: var(--vertical-padding) var(--vertical-padding) 1.5vh var(--vertical-padding);
-    ;
-    overflow: auto;
     background: rgb(255, 255, 255);
     border-radius: 30px;
 
@@ -111,8 +109,6 @@
     outline: transparent;
     text-decoration: none;
     box-sizing: border-box;
-
-    font-family: "Segoe UI";
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -168,7 +164,6 @@
 }
 
 .chatMessageErrorContent {
-    font-family: "Segoe UI";
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -259,13 +254,11 @@
     left: calc(50% - 161px / 2 + 25.8px);
     border: 1px solid #d1d1d1;
     border-radius: 16px;
+    margin: 0 auto;
 
     @media (max-width: 820px) {
-        left: 25% !important;
-        padding: 5px 12px;
-        width: auto;
-        bottom: 16px;
-        top: 0px;
+        width: 85px;
+        margin: 0 auto;
     }
 }
 
