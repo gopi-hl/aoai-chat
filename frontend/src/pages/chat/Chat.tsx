@@ -33,12 +33,46 @@ import { AppStateContext } from "../../state/AppProvider";
 import { useBoolean } from "@fluentui/react-hooks";
 import Navigation from '../../components/Navigation/Navigation';
 import PdfPage from "../pdf/PdfPage";
+import styled from "styled-components";
 
 const enum messageStatus {
     NotRunning = "Not Running",
     Processing = "Processing",
     Done = "Done"
 }
+
+interface DescriptionProps {
+    size?: string;
+    color?: string;
+}
+
+const Description = styled.p<DescriptionProps>`
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: ${(props) => props.size};
+    color: ${(props) => props.color};
+  `;
+
+const Header = styled.header`
+    display: flex;
+    align-items: center;
+    gap: 1.1em;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    padding-bottom: 1em;
+    height: 3.2em;
+    & img {
+        height: 100%;
+        border-radius: 0.7em;
+    }
+    & h2 {
+        font-size: 0.85em;
+        font-weight: 600;
+    }
+`;
+
 
 const Chat = () => {
     const appStateContext = useContext(AppStateContext)
@@ -544,6 +578,15 @@ const Chat = () => {
                     <Navigation onNavClicked={onNavClicked} />
                     <div style={{ display: (navValue === 'Chat' || null) ? 'contents' : 'none' }}>
                         <div className={styles.chatContainer} >
+                            <Stack>
+                                <Header>
+                                    <img alt='room-img' src={'https://i.pinimg.com/originals/23/7e/7d/237e7dfccfe9c019bf148855aec83c11.gif'} />
+                                    <div>
+                                        <h2>{'PDF chatbot'}</h2>
+                                        <Description color='#000' size='0.75em'>{'AI PDF chatbot'}</Description>
+                                    </div>
+                                </Header>
+                            </Stack>
                             {!messages || messages.length < 1 ? (
                                 <Stack className={styles.chatEmptyState}>
                                     <h1 className={styles.chatEmptyStateTitle}>Start chatting</h1>
