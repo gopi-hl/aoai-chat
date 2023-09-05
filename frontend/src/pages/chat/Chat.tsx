@@ -582,8 +582,8 @@ const Chat = () => {
                                 <Header>
                                     <img alt='room-img' src={'https://i.pinimg.com/originals/23/7e/7d/237e7dfccfe9c019bf148855aec83c11.gif'} />
                                     <div>
-                                        <h2>{'PDF chatbot'}</h2>
-                                        <Description color='#000' size='0.75em'>{'AI PDF chatbot'}</Description>
+                                        <h2>{'Chat with The 10X Software Engineer'}</h2>
+                                        <Description color='#000' size='0.75em'>{'Ask questions around various aspects of developer career growth.'}</Description>
                                     </div>
                                 </Header>
                             </Stack>
