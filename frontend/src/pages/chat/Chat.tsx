@@ -103,6 +103,11 @@ const Chat = () => {
         isBlocking: true,
         styles: { main: { maxWidth: 450 } },
     }
+    
+    const triggerPdfActivation = () => {
+      const event = new Event("activatePdfButton");
+      window.dispatchEvent(event);
+    };
 
     useEffect(() => {
         if (appStateContext?.state.isCosmosDBAvailable?.status === CosmosDBStatus.NotWorking && appStateContext.state.chatHistoryLoadingState === ChatHistoryLoadingState.Fail && hideErrorDialog) {
@@ -431,27 +436,6 @@ const Chat = () => {
 
     }
 
-    const clearChat = async () => {
-        setClearingChat(true)
-        if (appStateContext?.state.currentChat?.id && appStateContext?.state.isCosmosDBAvailable.cosmosDB) {
-            let response = await historyClear(appStateContext?.state.currentChat.id)
-            if (!response.ok) {
-                setErrorMsg({
-                    title: "Error clearing current chat",
-                    subtitle: "Please try again. If the problem persists, please contact the site administrator.",
-                })
-                toggleErrorDialog();
-            } else {
-                appStateContext?.dispatch({ type: 'DELETE_CURRENT_CHAT_MESSAGES', payload: appStateContext?.state.currentChat.id });
-                appStateContext?.dispatch({ type: 'UPDATE_CHAT_HISTORY', payload: appStateContext?.state.currentChat });
-                setActiveCitation(undefined);
-                setIsCitationPanelOpen(false);
-                setMessages([])
-            }
-        }
-        setClearingChat(false)
-    };
-
     const newChat = () => {
         setProcessMessages(messageStatus.Processing)
         setMessages([])
@@ -561,164 +545,271 @@ const Chat = () => {
     };
 
     return (
-
-        <div className={styles.container} role="main">
-            {showAuthMessage ? (
-                <Stack className={styles.chatEmptyState}>
-                    <ShieldLockRegular className={styles.chatIcon} style={{ color: 'darkorange', height: "200px", width: "200px" }} />
-                    <h1 className={styles.chatEmptyStateTitle}>Authentication Not Configured</h1>
+      <div className={styles.container} role="main">
+        {showAuthMessage ? (
+          <Stack className={styles.chatEmptyState}>
+            <ShieldLockRegular
+              className={styles.chatIcon}
+              style={{ color: "darkorange", height: "200px", width: "200px" }}
+            />
+            <h1 className={styles.chatEmptyStateTitle}>
+              Authentication Not Configured
+            </h1>
+            <h2 className={styles.chatEmptyStateSubtitle}>
+              This app does not have authentication configured. Please add an
+              identity provider by finding your app in the
+            </h2>
+            <h2
+              className={styles.chatEmptyStateSubtitle}
+              style={{ fontSize: "20px" }}
+            >
+              <strong>
+                Authentication configuration takes a few minutes to apply.{" "}
+              </strong>
+            </h2>
+            <h2
+              className={styles.chatEmptyStateSubtitle}
+              style={{ fontSize: "20px" }}
+            >
+              <strong>
+                If you deployed in the last 10 minutes, please wait and reload
+                the page after 10 minutes.
+              </strong>
+            </h2>
+          </Stack>
+        ) : (
+          <Stack horizontal className={styles.chatRoot}>
+            <Navigation onNavClicked={onNavClicked} />
+            <div
+              style={{
+                display: navValue === "Chat" || null ? "contents" : "none",
+              }}
+            >
+              <div className={styles.chatContainer}>
+                <Stack>
+                  <Header>
+                    <img
+                      alt="room-img"
+                      src={
+                        "https://i.pinimg.com/originals/23/7e/7d/237e7dfccfe9c019bf148855aec83c11.gif"
+                      }
+                    />
+                    <div>
+                      <h2>{"Chat with The 10X Software Engineer"}</h2>
+                      <Description color="#000" size="0.75em">
+                        {
+                          "Ask questions around various aspects of developer career growth."
+                        }
+                      </Description>
+                    </div>
+                  </Header>
+                </Stack>
+                {!messages || messages.length < 1 ? (
+                  <Stack className={styles.chatEmptyState}>
+                    <h1 className={styles.chatEmptyStateTitle}>
+                      The 10x Software Engineer
+                    </h1>
                     <h2 className={styles.chatEmptyStateSubtitle}>
-                        This app does not have authentication configured. Please add an identity provider by finding your app in the
+                      I'm here to answer your questions about
+                      my book (with citations).
                     </h2>
-                    <h2 className={styles.chatEmptyStateSubtitle} style={{ fontSize: "20px" }}><strong>Authentication configuration takes a few minutes to apply. </strong></h2>
-                    <h2 className={styles.chatEmptyStateSubtitle} style={{ fontSize: "20px" }}><strong>If you deployed in the last 10 minutes, please wait and reload the page after 10 minutes.</strong></h2>
-                </Stack>
-            ) : (
-                <Stack horizontal className={styles.chatRoot}>
-                    <Navigation onNavClicked={onNavClicked} />
-                    <div style={{ display: (navValue === 'Chat' || null) ? 'contents' : 'none' }}>
-                        <div className={styles.chatContainer} >
-                            <Stack>
-                                <Header>
-                                    <img alt='room-img' src={'https://i.pinimg.com/originals/23/7e/7d/237e7dfccfe9c019bf148855aec83c11.gif'} />
-                                    <div>
-                                        <h2>{'Chat with The 10X Software Engineer'}</h2>
-                                        <Description color='#000' size='0.75em'>{'Ask questions around various aspects of developer career growth.'}</Description>
-                                    </div>
-                                </Header>
+                    <h2
+                      onClick={triggerPdfActivation}
+                      className={styles.clickable + " " + styles.chatEmptyStateSubtitle}
+                    >
+                      Table of Contents
+                    </h2>
+                  </Stack>
+                ) : (
+                  <div
+                    className={styles.chatMessageStream}
+                    style={{ marginBottom: isLoading ? "40px" : "0px" }}
+                    role="log"
+                  >
+                    {messages.map((answer, index) => (
+                      <>
+                        {answer.role === "user" ? (
+                          <div className={styles.chatMessageUser} tabIndex={0}>
+                            <div className={styles.chatMessageUserMessage}>
+                              {answer.content}
+                            </div>
+                          </div>
+                        ) : answer.role === "assistant" ? (
+                          <div className={styles.chatMessageGpt}>
+                            <Answer
+                              answer={{
+                                answer: answer.content,
+                                citations: parseCitationFromMessage(
+                                  messages[index - 1]
+                                ),
+                              }}
+                              onCitationClicked={(c) => onShowCitation(c)}
+                            />
+                          </div>
+                        ) : answer.role === "error" ? (
+                          <div className={styles.chatMessageError}>
+                            <Stack
+                              horizontal
+                              className={styles.chatMessageErrorContent}
+                            >
+                              <ErrorCircleRegular
+                                className={styles.errorIcon}
+                                style={{ color: "rgba(182, 52, 67, 1)" }}
+                              />
+                              <span>Error</span>
                             </Stack>
-                            {!messages || messages.length < 1 ? (
-                                <Stack className={styles.chatEmptyState}>
-                                    <h1 className={styles.chatEmptyStateTitle}>Start chatting</h1>
-                                    <h2 className={styles.chatEmptyStateSubtitle}>This chatbot is configured to answer your questions</h2>
-                                </Stack>
-                            ) : (
-                                <div className={styles.chatMessageStream} style={{ marginBottom: isLoading ? "40px" : "0px" }} role="log">
-                                    {messages.map((answer, index) => (
-                                        <>
-                                            {answer.role === "user" ? (
-                                                <div className={styles.chatMessageUser} tabIndex={0}>
-                                                    <div className={styles.chatMessageUserMessage}>{answer.content}</div>
-                                                </div>
-                                            ) : (
-                                                answer.role === "assistant" ? <div className={styles.chatMessageGpt}>
-                                                    <Answer
-                                                        answer={{
-                                                            answer: answer.content,
-                                                            citations: parseCitationFromMessage(messages[index - 1]),
-                                                        }}
-                                                        onCitationClicked={c => onShowCitation(c)}
-                                                    />
-                                                </div> : answer.role === "error" ? <div className={styles.chatMessageError}>
-                                                    <Stack horizontal className={styles.chatMessageErrorContent}>
-                                                        <ErrorCircleRegular className={styles.errorIcon} style={{ color: "rgba(182, 52, 67, 1)" }} />
-                                                        <span>Error</span>
-                                                    </Stack>
-                                                    <span className={styles.chatMessageErrorContent}>{answer.content}</span>
-                                                </div> : null
-                                            )}
-                                        </>
-                                    ))}
-                                    {showLoadingMessage && (
-                                        <>
-                                            <div className={styles.chatMessageGpt}>
-                                                <Answer
-                                                    answer={{
-                                                        answer: "Generating answer...",
-                                                        citations: []
-                                                    }}
-                                                    onCitationClicked={() => null}
-                                                />
-                                            </div>
-                                        </>
-                                    )}
-                                    <div ref={chatMessageStreamEnd} />
-                                </div>
-                            )}
-
-                            <Stack horizontal className={styles.chatInput}>
-                                {isLoading && (
-                                    <Stack
-                                        horizontal
-                                        className={styles.stopGeneratingContainer}
-                                        role="button"
-                                        aria-label="Stop"
-                                        tabIndex={0}
-                                        onClick={stopGenerating}
-                                        onKeyDown={e => e.key === "Enter" || e.key === " " ? stopGenerating() : null}
-                                    >
-                                        <SquareRegular className={styles.stopGeneratingIcon} />
-                                        <span className={styles.stopGeneratingText} aria-hidden="true">Stop</span>
-                                    </Stack>
-                                )}
-                                <Stack>
-                                    {appStateContext?.state.isCosmosDBAvailable?.status !== CosmosDBStatus.NotConfigured && <CommandBarButton
-                                        role="button"
-                                        styles={{
-                                            icon: {
-                                                color: '#FFFFFF',
-                                            },
-                                            root: {
-                                                color: '#FFFFFF',
-                                                background: "radial-gradient(109.81% 107.82% at 100.1% 90.19%, #0F6CBD 33.63%, #2D87C3 70.31%, #8DDDD8 100%)"
-                                            },
-                                            rootDisabled: {
-                                                background: "#BDBDBD"
-                                            }
-                                        }}
-                                        className={styles.newChatIcon}
-                                        iconProps={{ iconName: 'Add' }}
-                                        onClick={newChat}
-                                        disabled={disabledButton()}
-                                        aria-label="start a new chat button"
-                                    />}
-
-                                    <Dialog
-                                        hidden={hideErrorDialog}
-                                        onDismiss={handleErrorDialogClose}
-                                        dialogContentProps={errorDialogContentProps}
-                                        modalProps={modalProps}
-                                    >
-                                    </Dialog>
-                                </Stack>
-                                <QuestionInput
-                                    clearOnSend
-                                    placeholder="Type a new question..."
-                                    disabled={isLoading}
-                                    onSend={(question, id) => {
-                                        appStateContext?.state.isCosmosDBAvailable?.cosmosDB ? makeApiRequestWithCosmosDB(question, id) : makeApiRequestWithoutCosmosDB(question, id)
-                                    }}
-                                    conversationId={appStateContext?.state.currentChat?.id ? appStateContext?.state.currentChat?.id : undefined}
-                                />
-                            </Stack>
+                            <span className={styles.chatMessageErrorContent}>
+                              {answer.content}
+                            </span>
+                          </div>
+                        ) : null}
+                      </>
+                    ))}
+                    {showLoadingMessage && (
+                      <>
+                        <div className={styles.chatMessageGpt}>
+                          <Answer
+                            answer={{
+                              answer: "Generating answer...",
+                              citations: [],
+                            }}
+                            onCitationClicked={() => null}
+                          />
                         </div>
-                        {messages && messages.length > 0 && isCitationPanelOpen && activeCitation && (
-                            <Stack.Item className={styles.citationPanel} tabIndex={0} role="tabpanel" aria-label="Citations Panel">
-                                <Stack aria-label="Citations Panel Header Container" horizontal className={styles.citationPanelHeaderContainer} horizontalAlign="space-between" verticalAlign="center">
-                                    <span aria-label="Citations" className={styles.citationPanelHeader}>Citations from the book</span>
-                                    <IconButton className={styles.citationPanelCloseIcon} iconProps={{ iconName: 'Cancel' }} aria-label="Close citations panel" onClick={() => setIsCitationPanelOpen(false)} />
-                                </Stack>
-                                <h5 className={styles.citationPanelTitle} tabIndex={0}>{activeCitation[2]}</h5>
-                                <div tabIndex={0}>
-                                    <ReactMarkdown
-                                        linkTarget="_blank"
-                                        className={styles.citationPanelContent}
-                                        children={activeCitation[0]}
-                                        remarkPlugins={[remarkGfm]}
-                                        rehypePlugins={[rehypeRaw]}
-                                    />
-                                </div>
+                      </>
+                    )}
+                    <div ref={chatMessageStreamEnd} />
+                  </div>
+                )}
 
-                            </Stack.Item>
-                        )}
-                    </div>
-                    {(appStateContext?.state.isChatHistoryOpen && appStateContext?.state.isCosmosDBAvailable?.status !== CosmosDBStatus.NotConfigured) && <ChatHistoryPanel />}
-                    <div style={{ display: (navValue === 'pdf') ? 'contents' : 'none' }}>
-                        {navValue === 'pdf' && <PdfPage />}
-                    </div>
+                <Stack horizontal className={styles.chatInput}>
+                  {isLoading && (
+                    <Stack
+                      horizontal
+                      className={styles.stopGeneratingContainer}
+                      role="button"
+                      aria-label="Stop"
+                      tabIndex={0}
+                      onClick={stopGenerating}
+                      onKeyDown={(e) =>
+                        e.key === "Enter" || e.key === " "
+                          ? stopGenerating()
+                          : null
+                      }
+                    >
+                      <SquareRegular className={styles.stopGeneratingIcon} />
+                      <span
+                        className={styles.stopGeneratingText}
+                        aria-hidden="true"
+                      >
+                        Stop
+                      </span>
+                    </Stack>
+                  )}
+                  <Stack>
+                    {appStateContext?.state.isCosmosDBAvailable?.status !==
+                      CosmosDBStatus.NotConfigured && (
+                      <CommandBarButton
+                        role="button"
+                        styles={{
+                          icon: {
+                            color: "#FFFFFF",
+                          },
+                          root: {
+                            color: "#FFFFFF",
+                            background:
+                              "radial-gradient(109.81% 107.82% at 100.1% 90.19%, #0F6CBD 33.63%, #2D87C3 70.31%, #8DDDD8 100%)",
+                          },
+                          rootDisabled: {
+                            background: "#BDBDBD",
+                          },
+                        }}
+                        className={styles.newChatIcon}
+                        iconProps={{ iconName: "Add" }}
+                        onClick={newChat}
+                        disabled={disabledButton()}
+                        aria-label="start a new chat button"
+                      />
+                    )}
+
+                    <Dialog
+                      hidden={hideErrorDialog}
+                      onDismiss={handleErrorDialogClose}
+                      dialogContentProps={errorDialogContentProps}
+                      modalProps={modalProps}
+                    ></Dialog>
+                  </Stack>
+                  <QuestionInput
+                    clearOnSend
+                    placeholder="Type a new question..."
+                    disabled={isLoading}
+                    onSend={(question, id) => {
+                      appStateContext?.state.isCosmosDBAvailable?.cosmosDB
+                        ? makeApiRequestWithCosmosDB(question, id)
+                        : makeApiRequestWithoutCosmosDB(question, id);
+                    }}
+                    conversationId={
+                      appStateContext?.state.currentChat?.id
+                        ? appStateContext?.state.currentChat?.id
+                        : undefined
+                    }
+                  />
                 </Stack>
-            )}
-        </div>
+              </div>
+              {messages &&
+                messages.length > 0 &&
+                isCitationPanelOpen &&
+                activeCitation && (
+                  <Stack.Item
+                    className={styles.citationPanel}
+                    tabIndex={0}
+                    role="tabpanel"
+                    aria-label="Citations Panel"
+                  >
+                    <Stack
+                      aria-label="Citations Panel Header Container"
+                      horizontal
+                      className={styles.citationPanelHeaderContainer}
+                      horizontalAlign="space-between"
+                      verticalAlign="center"
+                    >
+                      <span
+                        aria-label="Citations"
+                        className={styles.citationPanelHeader}
+                      >
+                        Citations from the book
+                      </span>
+                      <IconButton
+                        className={styles.citationPanelCloseIcon}
+                        iconProps={{ iconName: "Cancel" }}
+                        aria-label="Close citations panel"
+                        onClick={() => setIsCitationPanelOpen(false)}
+                      />
+                    </Stack>
+                    <h5 className={styles.citationPanelTitle} tabIndex={0}>
+                      {activeCitation[2]}
+                    </h5>
+                    <div tabIndex={0}>
+                      <ReactMarkdown
+                        linkTarget="_blank"
+                        className={styles.citationPanelContent}
+                        children={activeCitation[0]}
+                        remarkPlugins={[remarkGfm]}
+                        rehypePlugins={[rehypeRaw]}
+                      />
+                    </div>
+                  </Stack.Item>
+                )}
+            </div>
+            {appStateContext?.state.isChatHistoryOpen &&
+              appStateContext?.state.isCosmosDBAvailable?.status !==
+                CosmosDBStatus.NotConfigured && <ChatHistoryPanel />}
+            <div style={{ display: navValue === "pdf" ? "contents" : "none" }}>
+              {navValue === "pdf" && <PdfPage />}
+            </div>
+          </Stack>
+        )}
+      </div>
     );
 };
 

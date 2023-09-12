@@ -55,11 +55,13 @@
     display: flex;
     align-items: flex-end;
     text-align: center;
-    line-height: 24px;
+    line-height: 40px;
     margin-top: 36px;
     margin-bottom: 0px;
 }
-
+.clickable{
+    cursor: pointer;
+}
 .chatEmptyStateSubtitle {
     margin-top: 20px;
     font-style: normal;
