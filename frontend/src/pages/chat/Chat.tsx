@@ -1,6 +1,6 @@
-import { useRef, useState, useEffect, useContext, useLayoutEffect, SetStateAction } from "react";
+import { useRef, useState, useEffect, useContext, useLayoutEffect } from "react";
 import { CommandBarButton, IconButton, Dialog, DialogType, Stack } from "@fluentui/react";
-import { DismissRegular, SquareRegular, ShieldLockRegular, ErrorCircleRegular } from "@fluentui/react-icons";
+import { SquareRegular, ShieldLockRegular, ErrorCircleRegular } from "@fluentui/react-icons";
 
 import ReactMarkdown from "react-markdown";
 import remarkGfm from 'remark-gfm'
@@ -8,7 +8,6 @@ import rehypeRaw from "rehype-raw";
 import uuid from 'react-uuid';
 
 import styles from "./Chat.module.css";
-import Azure from "../../assets/Azure.svg";
 
 import {
     ChatMessage,
@@ -21,7 +20,6 @@ import {
     Conversation,
     historyGenerate,
     historyUpdate,
-    historyClear,
     ChatHistoryLoadingState,
     CosmosDBStatus,
     ErrorMessage
@@ -71,6 +69,12 @@ const Header = styled.header`
         font-size: 0.85em;
         font-weight: 600;
     }
+    @media (max-width: 820px) {
+      height: 50px;
+      margin: 5px;
+      padding: 0px;
+      gap: 0;
+  }
 `;
 
 
@@ -776,7 +780,7 @@ const Chat = () => {
                       <span
                         aria-label="Citations"
                         className={styles.citationPanelHeader}
-                      >
+                       >
                         Citations from the book
                       </span>
                       <IconButton
