@@ -710,7 +710,8 @@ const Chat = () => {
                       </span>
                     </Stack>
                   )}
-                  <Stack>
+                  {/* start a new chat button code commented */}
+                  {/* <Stack>
                     {appStateContext?.state.isCosmosDBAvailable?.status !==
                       CosmosDBStatus.NotConfigured && (
                       <CommandBarButton
@@ -742,7 +743,8 @@ const Chat = () => {
                       dialogContentProps={errorDialogContentProps}
                       modalProps={modalProps}
                     ></Dialog>
-                  </Stack>
+                  </Stack> */}
+                  {/* start a new chat button code commented */}
                   <QuestionInput
                     clearOnSend
                     placeholder="Type a new question..."
