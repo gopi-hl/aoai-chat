@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect, useContext, useLayoutEffect } from "react";
 import { CommandBarButton, IconButton, Dialog, DialogType, Stack } from "@fluentui/react";
-import { SquareRegular, ShieldLockRegular, ErrorCircleRegular } from "@fluentui/react-icons";
+import { SquareRegular, ShieldLockRegular, ErrorCircleRegular, ArrowClockwise24Regular } from "@fluentui/react-icons";
 
 import ReactMarkdown from "react-markdown";
 import remarkGfm from 'remark-gfm'
@@ -711,30 +711,32 @@ const Chat = () => {
                     </Stack>
                   )}
                   <Stack>
+                  <div className={styles.chatIcon01}>
                     {appStateContext?.state.isCosmosDBAvailable?.status !==
                       CosmosDBStatus.NotConfigured && (
-                      <CommandBarButton
-                        role="button"
-                        styles={{
-                          icon: {
-                            color: "#FFFFFF",
-                          },
-                          root: {
-                            color: "#FFFFFF",
-                            background:
-                              "radial-gradient(109.81% 107.82% at 100.1% 90.19%, #0F6CBD 33.63%, #2D87C3 70.31%, #8DDDD8 100%)",
-                          },
-                          rootDisabled: {
-                            background: "#BDBDBD",
-                          },
-                        }}
-                        className={styles.newChatIcon}
-                        iconProps={{ iconName: "Add" }}
-                        onClick={newChat}
-                        disabled={disabledButton()}
-                        aria-label="start a new chat button"
-                      />
-                    )}
+                        <CommandBarButton
+                          role="button"
+                          styles={{
+                            icon: {
+                              color: "#FFFFFF",
+                            },
+                            root: {
+                              color: "#FFFFFF",
+                              background:
+                                "radial-gradient(109.81% 107.82% at 100.1% 90.19%, #0F6CBD 33.63%, #2D87C3 70.31%, #8DDDD8 100%)",
+                            },
+                            rootDisabled: {
+                              background: "#BDBDBD",
+                            },
+                          }}
+                          className={styles.newChatIcon}
+                          iconProps={{ iconName: "Refresh" }}
+                          onClick={newChat}
+                          disabled={disabledButton()}
+                          aria-label="start a new chat button"
+                        />
+                      )}
+                  </div>
 
                     <Dialog
                       hidden={hideErrorDialog}
