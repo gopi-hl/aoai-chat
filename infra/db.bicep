@@ -10,7 +10,7 @@ param containers array = [
   {
     name: collectionName
     id: collectionName
-    partitionKey: '/userId'
+    partitionKey: '/id'
   }
 ]
 
