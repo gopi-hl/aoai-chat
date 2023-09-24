@@ -10,20 +10,22 @@ def get_authenticated_user_details(request_headers):
         ## if it is, get the user details from the EasyAuth headers
         raw_user_object = {k:v for k,v in request_headers.items()}
 
+    # print(raw_user_object)
+
     # user_object['user_principal_id'] = raw_user_object['X-Ms-Client-Principal-Id']
     # user_object['user_name'] = raw_user_object['X-Ms-Client-Principal-Name']
     # user_object['auth_provider'] = raw_user_object['X-Ms-Client-Principal-Idp']
     # user_object['auth_token'] = raw_user_object['X-Ms-Token-Aad-Id-Token']
     # user_object['client_principal_b64'] = raw_user_object['X-Ms-Client-Principal']
     # user_object['aad_id_token'] = raw_user_object["X-Ms-Token-Aad-Id-Token"]
+    
+    user_object['user_principal_id'] = raw_user_object.get('X-Ms-Client-Principal-Id', 'fake_principal_id')
+    user_object['user_name'] = raw_user_object.get('X-Ms-Client-Principal-Name', 'fake_user_name')
+    user_object['auth_provider'] = raw_user_object.get('X-Ms-Client-Principal-Idp', 'fake_auth_provider')
+    user_object['auth_token'] = raw_user_object.get('X-Ms-Token-Aad-Id-Token', 'fake_auth_token')
+    user_object['client_principal_b64'] = raw_user_object.get('X-Ms-Client-Principal', 'fake_client_principal_b64')
+    user_object['aad_id_token'] = raw_user_object.get('X-Ms-Token-Aad-Id-Token', 'fake_aad_id_token')
 
-    user_object['user_principal_id'] = raw_user_object.get('X-Ms-Client-Principal-Id', None)
-    user_object['user_name'] = raw_user_object.get('X-Ms-Client-Principal-Name', None)
-    user_object['auth_provider'] = raw_user_object.get('X-Ms-Client-Principal-Idp', None)
-    user_object['auth_token'] = raw_user_object.get('X-Ms-Token-Aad-Id-Token', None)
-    user_object['client_principal_b64'] = raw_user_object.get('X-Ms-Client-Principal', None)
-    user_object['aad_id_token'] = raw_user_object.get('X-Ms-Token-Aad-Id-Token', None)
-
-
+    print(user_object)
 
     return user_object
