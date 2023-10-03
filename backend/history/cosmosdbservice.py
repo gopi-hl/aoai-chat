@@ -121,14 +121,14 @@ class CosmosConversationClient():
         }
         
         resp = self.container_client.upsert_item(message)  
-        if resp:
-            ## update the parent conversations's updatedAt field with the current message's createdAt datetime value
-            conversation = self.get_conversation(user_id, conversation_id)
-            conversation['updatedAt'] = message['createdAt']
-            self.upsert_conversation(conversation)
-            return resp
-        else:
-            return False
+        # if resp:
+        #     ## update the parent conversations's updatedAt field with the current message's createdAt datetime value
+        #     conversation = self.get_conversation(user_id, conversation_id)
+        #     conversation['updatedAt'] = message['createdAt']
+        #     self.upsert_conversation(conversation)
+        #     return resp
+        # else:
+        #     return False
     
 
 
