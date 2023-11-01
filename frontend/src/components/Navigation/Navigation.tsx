@@ -71,7 +71,7 @@ const Navigation: React.FC<{ onNavClicked: (value: string) => void }> = ({
         </a>
       </ButtonContainer>
       <ButtonContainer>
-        <a href="https://www.kickstarter.com/" target="_blank">
+        <a href="https://www.kickstarter.com/projects/gopil/the-10x-software-engineer-master-your-swe-career" target="_blank">
           <Cart24Regular />
         </a>
       </ButtonContainer>
