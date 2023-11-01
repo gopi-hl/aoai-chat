@@ -150,7 +150,6 @@
 
 .chatMessageError {
     padding: 20px;
-    /* background: #EDF5FD; */
     border-radius: 8px;
     box-shadow:
         rgba(182, 52, 67, 1) 1px 1px 2px,
@@ -160,9 +159,8 @@
     flex: none;
     order: 0;
     flex-grow: 0;
-
     max-width: 800px;
-    /* filter: drop-shadow(rgba(182, 52, 67, 1) 1px 1px 2px) drop-shadow(rgba(182, 52, 67, 1) 0px 0px 1px); */
+    margin-bottom: 12px;
 }
 
 .chatMessageErrorContent {
@@ -342,6 +340,11 @@
 
 .citationPanelCloseIcon i {
     color: #323130 !important;
+}
+
+.citationPanelTitle:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .citationPanelContent {
